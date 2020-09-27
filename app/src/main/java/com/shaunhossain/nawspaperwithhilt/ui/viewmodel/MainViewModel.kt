@@ -5,11 +5,13 @@ import androidx.lifecycle.*
 import com.shaunhossain.nawspaperwithhilt.model.Article
 import com.shaunhossain.nawspaperwithhilt.model.Resource
 import com.shaunhossain.nawspaperwithhilt.usecase.ArticleDataUseCase
+import com.shaunhossain.nawspaperwithhilt.utlis.InternetChecker
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import java.io.IOException
 
-class MainViewModel @ViewModelInject constructor(private val articleDataUseCase: ArticleDataUseCase) : ViewModel() {
+class MainViewModel @ViewModelInject constructor(private val articleDataUseCase: ArticleDataUseCase,
+                                                 private val internetChecker: InternetChecker) : ViewModel() {
     private val _breakingNews: MutableLiveData<Resource<Article>> = MutableLiveData()
     val breakingNews : LiveData<Resource<Article>>
         get() = _breakingNews
@@ -28,8 +30,12 @@ class MainViewModel @ViewModelInject constructor(private val articleDataUseCase:
     private suspend fun safeBreakingNewsCall(countryCode: String){
         _breakingNews.postValue(Resource.Loading())
         try {
+            if(internetChecker.isNetworkConnected()){
                 val response = articleDataUseCase.getNewsList(countryCode,breakingNewsPage)
                 _breakingNews.postValue(handleBreakingNewsResponse(response))
+            } else {
+                _breakingNews.postValue(Resource.Error("No internet connection"))
+            }
         } catch (t : Throwable){
             when (t) {
                 is IOException -> _breakingNews.postValue(Resource.Error("Network Failure"))

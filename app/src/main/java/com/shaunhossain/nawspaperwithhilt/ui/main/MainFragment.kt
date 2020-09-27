@@ -33,8 +33,8 @@ class MainFragment : Fragment() {
             when(response) {
                 is Resource.Success -> {
                     response.data?.let { newsResponse ->
-                        //Toast.makeText(activity, "article: ${newsResponse.articles}", Toast.LENGTH_LONG).show()
-                        Log.d("main","${newsResponse.articles}")
+                        Toast.makeText(activity, "article: ${newsResponse.articles}", Toast.LENGTH_LONG).show()
+                        //Log.d("main","${newsResponse.articles}")
                     }
                 }
                 is Resource.Error -> {
