@@ -15,7 +15,7 @@ class MainViewModel @ViewModelInject constructor(private val articleDataUseCase:
     private val _breakingNews: MutableLiveData<Resource<Article>> = MutableLiveData()
     val breakingNews : LiveData<Resource<Article>>
         get() = _breakingNews
-    private var breakingNewsPage = 1
+    var breakingNewsPage = 1
     private var breakingNewsResponse: Article?= null
 
     init {
@@ -43,7 +43,6 @@ class MainViewModel @ViewModelInject constructor(private val articleDataUseCase:
             }
         }
     }
-
 
     private fun handleBreakingNewsResponse(resource: Response<Article>): Resource<Article>{
         if (resource.isSuccessful){
