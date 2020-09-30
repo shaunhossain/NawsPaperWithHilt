@@ -10,4 +10,9 @@
         android:name="com.shaunhossain.nawspaperwithhilt.ui.main.MainFragment"
         android:label="main_fragment"
         tools:layout="@layout/main_fragment" />
+    <fragment
+        android:id="@+id/saveArticlesFragment"
+        android:name="com.shaunhossain.nawspaperwithhilt.ui.main.SaveArticlesFragment"
+        android:label="fragment_save_articles"
+        tools:layout="@layout/fragment_save_articles" />
 </navigation>

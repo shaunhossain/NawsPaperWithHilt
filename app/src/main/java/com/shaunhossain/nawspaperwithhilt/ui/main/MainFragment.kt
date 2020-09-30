@@ -1,13 +1,11 @@
 package com.shaunhossain.nawspaperwithhilt.ui.main
 
 import android.os.Bundle
-import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.AbsListView
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,6 +31,7 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
         setupRecyclerView()
         val allNewsList = viewModel.breakingNews
 
@@ -105,6 +104,29 @@ class MainFragment : Fragment() {
                 isScrolling = true
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.search_bar, menu)
+
+        val searchItem: MenuItem = menu.findItem(R.id.searchBar)
+        val searchView = searchItem.actionView as SearchView
+
+        searchView.queryHint = getString(R.string.Search_News)
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+
+                Toast.makeText(context,query,Toast.LENGTH_LONG).show()
+
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                //hideSearchViewHolder()
+                return true
+            }
+        })
     }
 
     private fun setupRecyclerView() {
