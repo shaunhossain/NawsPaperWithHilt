@@ -1,22 +1,20 @@
 package com.shaunhossain.nawspaperwithhilt.adpter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.shaunhossain.nawspaperwithhilt.R
+import com.shaunhossain.nawspaperwithhilt.databinding.ItemArticlePreviewBinding
 import com.shaunhossain.nawspaperwithhilt.model.ArticleX
-import kotlinx.android.synthetic.main.item_article_preview.view.*
-import java.text.SimpleDateFormat
-import java.util.*
+
 
 
 class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
 
-    inner  class ArticleViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
+    inner  class ArticleViewHolder(
+        val itemArticlePreviewBinding: ItemArticlePreviewBinding
+    ): RecyclerView.ViewHolder(itemArticlePreviewBinding.root)
 
     private val differCallback = object : DiffUtil.ItemCallback<ArticleX>() {
         override fun areItemsTheSame(oldItem: ArticleX, newItem: ArticleX): Boolean {
@@ -28,25 +26,18 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
         }
     }
     val differ = AsyncListDiffer(this,differCallback)
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleViewHolder {
-        return ArticleViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.item_article_preview,
-                parent,
-                false
-            )
-        )
-
-    }
-
-    override fun getItemCount(): Int {
-        return differ.currentList.size
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = ItemArticlePreviewBinding.inflate(inflater)
+        return ArticleViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         val article = differ.currentList[position]
+        holder.itemArticlePreviewBinding.articleItem = article
 
-        holder.itemView.apply {
+        /*holder.itemView.apply {
             Glide.with(this)
                 .load(article.urlToImage)
                 .into(articleImage)
@@ -56,20 +47,12 @@ class NewsAdapter: RecyclerView.Adapter<NewsAdapter.ArticleViewHolder>() {
             setOnClickListener{
                  onItemClickListener?.let {it(article)}
             }
-        }
+        }*/
     }
 
-    private var onItemClickListener: ((ArticleX) -> Unit)? = null
-
-    fun setOnItemClickListener(listener: (ArticleX) -> Unit){
-        onItemClickListener = listener
+    override fun getItemCount(): Int {
+        return differ.currentList.size
     }
 
-    private fun changeDateFormat(date : String): String {
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.ENGLISH)
-        val currentDate = dateFormat.parse(date)
-        val formatter = SimpleDateFormat("dd MMMM", Locale.ENGLISH)
-        val dateNow = formatter.format(currentDate)
-        return dateNow
-    }
+
 }

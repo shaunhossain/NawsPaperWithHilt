@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout  xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:divider="@android:color/transparent"
-    android:dividerHeight="0.0px"
-    android:clipToPadding="false"
-    android:clipChildren="false"
-    app:cardElevation="10dp"
-    app:cardPreventCornerOverlap="false"
-    app:cardCornerRadius="2dp">
-    <LinearLayout
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="ArticleItem"
+            type="com.shaunhossain.nawspaperwithhilt.model.ArticleX" />
+    </data>
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0.0px"
+        android:clipToPadding="false"
+        android:clipChildren="false"
+        app:cardElevation="10dp"
+        app:cardPreventCornerOverlap="false"
+        app:cardCornerRadius="2dp">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -25,7 +26,8 @@
                 android:layout_width="130dp"
                 android:layout_height="90dp"
                 android:padding="8dp"
-                android:scaleType="centerCrop"
+                app:articleimage='@{ArticleItem.urlToImage.toString()}'
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="2"
-                tools:text="title"
+                android:text='@{ArticleItem.title}'
                 android:textSize="15sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/details"
@@ -47,10 +49,9 @@
             <RelativeLayout
                 android:id="@+id/details"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_marginStart="12dp"
                 android:ellipsize="end"
-                android:orientation="horizontal"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -62,31 +63,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"/>
-
-                <ImageView
-                    android:id="@+id/commentButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@id/publishedAt"
                     android:layout_centerVertical="true"
-                    android:layout_marginStart="30dp"
-                    android:layout_toEndOf="@+id/publishedAt"/>
+                    app:articledate='@{ArticleItem.publishedAt}'/>
 
                 <TextView
                     android:id="@+id/newsSource"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="4dp"
-                    android:layout_toEndOf="@id/commentButton"
-                    tools:ignore="RelativeOverlap" />
-
-                <ImageView
-                    android:id="@+id/share_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:text='@{ArticleItem.source.name}'
                     android:layout_alignBaseline="@id/publishedAt"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
@@ -97,5 +81,6 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@android:color/black"/>
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
+
+</layout>
