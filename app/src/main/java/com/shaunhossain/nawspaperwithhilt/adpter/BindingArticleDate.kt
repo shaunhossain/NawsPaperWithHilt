@@ -1,9 +1,7 @@
 package com.shaunhossain.nawspaperwithhilt.adpter
 
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
 import java.util.*
 

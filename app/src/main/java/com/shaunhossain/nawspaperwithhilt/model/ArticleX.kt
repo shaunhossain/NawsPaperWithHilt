@@ -2,6 +2,7 @@ package com.shaunhossain.nawspaperwithhilt.model
 
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class ArticleX(
     @SerializedName("author")
@@ -20,4 +21,4 @@ data class ArticleX(
     val url: String = "",
     @SerializedName("urlToImage")
     val urlToImage: Any? = null
-)
+): Serializable

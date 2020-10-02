@@ -10,4 +10,8 @@ class DataRepository @Inject constructor(private val apiService: ApiService) {
     suspend fun getRepositoryData(countryCode: String,pageNumber: Int): Response<Article> {
         return apiService.getArticles(countryCode,pageNumber)
     }
+
+    suspend fun getSearchNews(query: String,pageNumber: Int): Response<Article> {
+        return apiService.searchNews(query,pageNumber)
+    }
 }

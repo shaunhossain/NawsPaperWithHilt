@@ -4,7 +4,6 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.shaunhossain.nawspaperwithhilt.R
-import kotlinx.android.synthetic.main.item_article_preview.view.*
 
 @BindingAdapter("articleimage")
 fun loadImage(view : ImageView,url : String?){

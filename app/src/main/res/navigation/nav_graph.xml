@@ -8,11 +8,29 @@
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.shaunhossain.nawspaperwithhilt.ui.main.MainFragment"
-        android:label="main_fragment"
-        tools:layout="@layout/main_fragment" />
+        android:label="News Paper"
+        tools:layout="@layout/main_fragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_viewArticleFragment"
+            app:destination="@id/viewArticleFragment" />
+        <argument
+            android:name="article"
+            app:argType="com.shaunhossain.nawspaperwithhilt.model.ArticleX"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
     <fragment
         android:id="@+id/saveArticlesFragment"
         android:name="com.shaunhossain.nawspaperwithhilt.ui.main.SaveArticlesFragment"
-        android:label="fragment_save_articles"
-        tools:layout="@layout/fragment_save_articles" />
+        android:label="Save Articles"
+        tools:layout="@layout/fragment_save_articles" >
+        <action
+            android:id="@+id/action_saveArticlesFragment_to_viewArticleFragment"
+            app:destination="@id/viewArticleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewArticleFragment"
+        android:name="com.shaunhossain.nawspaperwithhilt.ui.main.ViewArticleFragment"
+        android:label="View Articles"
+        tools:layout="@layout/fragment_view_article" />
 </navigation>
